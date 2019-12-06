@@ -1,0 +1,30 @@
+{
+  "name": "greenberrywars-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dis/index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "start": "nodemon -e ts -w ./src --exec ts-node ./src/server | jq -cS",
+    "test": "mocha --require ts-node/register --recursive 'src/**/*.spec.ts' --timeout 800000"
+  },
+  "keywords": [
+    "greenberry",
+    "api",
+    "starwars",
+    "graphql"
+  ],
+  "author": "bram kaashoek",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-koa": "^2.9.13",
+    "koa": "^2.11.0",
+    "koa-router": "^7.4.0",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"
+  }
+}
