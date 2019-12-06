@@ -1,3 +1,9 @@
+# API
+
+## How to run
+
+`yarn` and `yarn start`. `yarn test` for tests.
+
 ## Why Typescript?
 
 Fail early, Fail often. I prefer to have problems in dev over problems in prod.
@@ -8,4 +14,12 @@ Koa is very similar to express, slightly smaller and more modular. I like the ct
 
 ## Why Apollo?
 
-Because I Love Apollo. Nothing comes close in functionality and use experience.
+Because I Love Apollo. Nothing comes close in functionality and user experience.
+
+## Why typescript-typedefs?
+
+Its an open source package I spent 3 days on because I was too lazy to do 15 minutes of work. It lets me generate TS types and GraphQL TypeDefs at the same time.
+
+## Why are the external API calls in the specs not mocked out?
+
+I would have done that in an actualy production project.

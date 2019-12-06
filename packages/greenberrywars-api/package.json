@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc --build",
     "start": "nodemon -e ts -w ./src --exec ts-node ./src/server | jq -cS",
-    "test": "mocha --require ts-node/register --recursive 'src/**/*.spec.ts' --timeout 800000"
+    "test": "mocha --require ts-node/register --recursive 'src/**/*.spec.ts' --timeout 10000",
+    "tst:transpile-only": "mocha --require ts-node/register/transpile-only --recursive 'src/**/*.spec.ts' --timeout 10000",
+    "test:watch": "NODE_LOGLEVEL=warn nodemon -e ts -w ./src --exec npm run tst:transpile-only"
   },
   "keywords": [
     "greenberry",
@@ -17,13 +19,21 @@
   "author": "bram kaashoek",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^3.0.0",
     "apollo-server-koa": "^2.9.13",
     "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "superagent": "^5.1.2",
+    "typescript-typedefs": "^0.2.1"
   },
   "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
     "nodemon": "^2.0.1",
+    "supertest": "^4.0.2",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.3"
   }

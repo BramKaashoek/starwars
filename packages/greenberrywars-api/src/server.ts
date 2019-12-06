@@ -1,25 +1,9 @@
-import { ApolloServer } from 'apollo-server-koa';
-import Koa from 'koa';
-import router from 'koa-router';
-
-import schema from './graphql/schema';
 import config from './config/config';
+import app from './lib/app';
 
-const app = new Koa();
-
-const rootRouter = new router();
-
-rootRouter.get(
-  '/',
-  async (ctx): Promise<void> => {
-    ctx.body = 'This is a GraphQL API, please go to /graphql';
-  },
-);
-
-app.use(rootRouter.routes());
-app.use(rootRouter.allowedMethods());
-
-const apolloServer = new ApolloServer({ schema });
-apolloServer.applyMiddleware({ app });
-
-app.listen(config.server.port);
+try {
+  app.listen(config.server.port);
+  console.error(`server up at :${config.server.port}`);
+} catch (err) {
+  console.error(err);
+}
