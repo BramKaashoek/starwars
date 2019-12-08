@@ -19,6 +19,10 @@ const typeDefs = gql`
   type Mutation {
     _: String
   }
+
+  input _ {
+    _: String
+  }
 `;
 
 const resolvers = {

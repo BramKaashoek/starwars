@@ -1,3 +1,4 @@
+import { fetchCharacters } from './../graphql/character/characters';
 import { ApolloServer } from 'apollo-server-koa';
 import Koa from 'koa';
 import router from 'koa-router';
@@ -5,24 +6,34 @@ import koaBody from 'koa-bodyparser';
 import cors from '@koa/cors';
 
 import schema from '../graphql/schema';
+import { fetchPlanets } from '../graphql/planets/planets';
 
-const app = new Koa();
+const getApp = async () => {
+  const app = new Koa();
 
-const rootRouter = new router();
-app.use(cors());
-app.use(koaBody());
+  // gotta prefetch the characters so we can enrich species and planets
+  await fetchCharacters();
 
-rootRouter.get(
-  '/',
-  async (ctx): Promise<void> => {
-    ctx.body = 'This is a GraphQL API, please go to /graphql';
-  },
-);
+  // gotta prefetch planets so we can enrich Characters in the subresolver, but after raw characters have been fetched since we need that to enrich planets
+  await fetchPlanets();
 
-app.use(rootRouter.routes());
-app.use(rootRouter.allowedMethods());
+  const rootRouter = new router();
+  app.use(cors());
+  app.use(koaBody());
 
-const apolloServer = new ApolloServer({ schema });
-apolloServer.applyMiddleware({ app });
+  rootRouter.get(
+    '/',
+    async (ctx): Promise<void> => {
+      ctx.body = 'This is a GraphQL API, please go to /graphql';
+    },
+  );
 
-export default app;
+  app.use(rootRouter.routes());
+  app.use(rootRouter.allowedMethods());
+
+  const apolloServer = new ApolloServer({ schema });
+  apolloServer.applyMiddleware({ app });
+  return app;
+};
+
+export default getApp;

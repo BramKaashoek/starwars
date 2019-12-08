@@ -1,3 +1,4 @@
+import { planetService } from './../planets/planets';
 import { Character } from './characterTypes';
 import { parseUrlsToIds } from './../../lib/helpers';
 import { sa } from './../../lib/sa';
@@ -6,10 +7,17 @@ import config from '../../config/config';
 export const charactersResolver = {
   Query: {
     // I like to split the resolver into a thin resolver calling a fat service
-    // usually this is nice for handling complex args, but in this case they are rather simple. ah well.
+    // this make it easier to call the fat service for a nested resolver
     characters: async (_, args, ctx): Promise<Character[]> => {
       const { speciesId, planetId, movieId } = args;
       return characterService.getcharacters(speciesId, planetId, movieId);
+    },
+  },
+  Character: {
+    planet: {
+      async resolve(character, args, ctx) {
+        return await planetService.getPlanet(character.homeworld);
+      },
     },
   },
 };
@@ -59,4 +67,4 @@ const memoizedFetchCharacters = (): (() => Promise<any[]>) => {
   };
 };
 
-const fetchCharacters = memoizedFetchCharacters();
+export const fetchCharacters = memoizedFetchCharacters();

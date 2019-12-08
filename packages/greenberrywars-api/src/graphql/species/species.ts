@@ -1,4 +1,4 @@
-import { parseUrlsToIds } from './../../lib/helpers';
+import { parseUrlsToIds, getPlanetsForSpecies } from './../../lib/helpers';
 import { sa } from './../../lib/sa';
 import { Species } from './speciesTypes';
 import config from '../../config/config';
@@ -7,23 +7,23 @@ export const speciesResolver = {
   Query: {
     species: async (_, args, ctx): Promise<Species[]> => {
       const { planetId, movieId } = args;
-      return speciesService.getSpeciess(planetId, movieId);
+      return speciesService.getSpecies(planetId, movieId);
     },
   },
 };
 
 const speciesService = {
-  getSpeciess: async (planetId: number, movieId: number) => {
-    const species = await fetchSpeciess();
+  getSpecies: async (planetId: number, movieId: number) => {
+    const species = await fetchSpecies();
 
     return species
-      .filter(species => planetId === undefined || species.homeworld === planetId)
+      .filter(species => planetId === undefined || species.planets.includes(planetId))
       .filter(species => movieId === undefined || species.films.includes(movieId))
       .sort((a, b) => (a.id < b.id ? -1 : 1));
   },
 };
 
-const memoizedFetchSpeciess = (): (() => Promise<any[]>) => {
+const memoizedFetchSpecies = (): (() => Promise<any[]>) => {
   let species = undefined;
   return async (): Promise<any[]> => {
     if (species) return species;
@@ -34,13 +34,19 @@ const memoizedFetchSpeciess = (): (() => Promise<any[]>) => {
     );
     const res = await Promise.all(promises);
 
-    species = res
+    const speciesPromises = res
       .map(r => r.results)
       .flat()
-      .map(parseUrlsToIds);
+      .map(parseUrlsToIds)
+      .map(async spec => {
+        spec.planets = await getPlanetsForSpecies(spec);
+        return spec;
+      });
+
+    species = await Promise.all(speciesPromises);
 
     return species;
   };
 };
 
-const fetchSpeciess = memoizedFetchSpeciess();
+export const fetchSpecies = memoizedFetchSpecies();

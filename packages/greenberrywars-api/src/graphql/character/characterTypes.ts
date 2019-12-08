@@ -1,13 +1,17 @@
+import { Planet } from './../planets/planetTypes';
 import { gql } from 'apollo-server-koa';
 import { Type, Field, generateTypeDefs, Int } from 'typescript-typedefs';
 
 @Type()
 export class Character {
+  @Field(Int)
+  id: number;
+
   @Field()
   name: string;
 
-  @Field(Int)
-  id: number;
+  @Field()
+  planet: Planet;
 }
 
 const generatedTypeDefs = generateTypeDefs([Character]);

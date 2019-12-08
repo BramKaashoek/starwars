@@ -1,4 +1,4 @@
-import { parseUrlsToIds } from './../../lib/helpers';
+import { parseUrlsToIds, getSpeciesForPlanet } from './../../lib/helpers';
 import { sa } from './../../lib/sa';
 import { Planet } from './planetTypes';
 import config from '../../config/config';
@@ -6,20 +6,24 @@ import config from '../../config/config';
 export const planetsResolver = {
   Query: {
     planets: async (_, args, ctx): Promise<Planet[]> => {
-      const { speciesId, movieId } = args;
-      return planetService.getPlanets(speciesId, movieId);
+      const { movieId, speciesId } = args;
+      return planetService.getPlanets(movieId, speciesId);
     },
   },
 };
 
-const planetService = {
-  getPlanets: async (speciesId: number, movieId: number) => {
+export const planetService = {
+  getPlanets: async (movieId: number, speciesId: number) => {
     const planets = await fetchPlanets();
 
     return planets
-      .filter(planet => speciesId === undefined || planet.residents.includes(speciesId))
       .filter(planet => movieId === undefined || planet.films.includes(movieId))
+      .filter(planet => speciesId === undefined || planet.species.includes(speciesId))
       .sort((a, b) => (a.id < b.id ? -1 : 1));
+  },
+  getPlanet: async (planetId: number) => {
+    const planets = await fetchPlanets();
+    return planets.find(planet => planet.id === planetId);
   },
 };
 
@@ -35,13 +39,20 @@ const memoizedFetchPlanets = (): (() => Promise<any[]>) => {
     );
     const res = await Promise.all(promises);
 
-    planets = res
+    const planetPromises = res
       .map(r => r.results)
       .flat()
-      .map(parseUrlsToIds);
+      .map(parseUrlsToIds)
+      // enriching planets with species through characters
+      .map(async planet => {
+        planet.species = await getSpeciesForPlanet(planet);
+        return planet;
+      });
+
+    planets = await Promise.all(planetPromises);
 
     return planets;
   };
 };
 
-const fetchPlanets = memoizedFetchPlanets();
+export const fetchPlanets = memoizedFetchPlanets();

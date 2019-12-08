@@ -34,4 +34,4 @@ const memoizedFetchMovies = (): (() => Promise<any[]>) => {
   };
 };
 
-const fetchMovies = memoizedFetchMovies();
+export const fetchMovies = memoizedFetchMovies();

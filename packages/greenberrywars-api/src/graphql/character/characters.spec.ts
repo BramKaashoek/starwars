@@ -7,12 +7,19 @@ describe('GraphQL: characters', () => {
         characters {
             name
             id
+            planet {
+              name
+            }
         }
     }`;
 
     const res = await testGraphQl(query);
     expect(res.data.characters.length).to.equal(87);
-    expect(res.data.characters[0]).to.eql({ name: 'Luke Skywalker', id: 1 });
+    expect(res.data.characters[0]).to.eql({
+      name: 'Luke Skywalker',
+      id: 1,
+      planet: { name: 'Tatooine' },
+    });
   });
 
   it('queries with planetID input', async (): Promise<void> => {
