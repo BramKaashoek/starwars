@@ -13,13 +13,13 @@ test:
     - yarn bootstrap
     - yarn test
 
-cypress_test:
-  stage: cypress_test
-  image: cypress/base:10
-  script:
-    - yarn
-    - yarn bootstrap
-    - yarn cypress
+# cypress_test:
+#   stage: cypress_test
+#   image: cypress/base:10
+#   script:
+#     - yarn
+#     - yarn bootstrap
+#     - yarn cypress
 
 build:
   stage: build
