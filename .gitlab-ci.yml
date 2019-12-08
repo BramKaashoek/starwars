@@ -1,6 +1,6 @@
 stages:
   - test
-  - cypress_test Cant run in CI because backend wont when tests are complete
+  - cypress_test
   - build
 
 test:
