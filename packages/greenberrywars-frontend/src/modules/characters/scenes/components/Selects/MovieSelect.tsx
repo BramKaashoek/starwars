@@ -20,7 +20,7 @@ const MovieSelect: React.FC<IProps> = props => {
   if (loading) return null;
 
   return (
-    <Select onChange={handleChange} value={movieId}>
+    <Select data-test="movieSelect" onChange={handleChange} value={movieId}>
       {data &&
         data.movies.map(movie => (
           <option key={movie.id} value={movie.id}>

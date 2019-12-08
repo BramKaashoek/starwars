@@ -20,7 +20,7 @@ const SpeciesSelect: React.FC<IProps> = props => {
   if (loading) return null;
 
   return (
-    <Select onChange={handleChange} value={speciesId}>
+    <Select data-test="speciesSelect" onChange={handleChange} value={speciesId}>
       {data &&
         data.species.map(species => (
           <option key={species.id} value={species.id}>

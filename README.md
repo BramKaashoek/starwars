@@ -4,6 +4,7 @@
 
 Use `yarn` to install dependencies for both packages and then use `yarn start` to start both dev servers simultaneously. Or `npm install` and `npm start` if you prefer.
 You can also run `yarn start` in the seperate packages to start the individual servers.
+Run `yarn cypress` to run the E2E specs.
 
 ## Why lerna? Isn't that meant for NPM packages?
 

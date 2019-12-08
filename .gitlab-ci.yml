@@ -1,0 +1,25 @@
+stages:
+  - test
+  - cypress_test Cant run in CI because backend wont when tests are complete
+  - build
+
+test:
+  stage: test
+  image: cypress/base:10
+  script:
+    - yarn
+    - yarn test
+
+cypress_test:
+  stage: cypress_test
+  image: cypress/base:10
+  script:
+    - yarn
+    - yarn cypress
+
+build:
+  stage: build
+  image: cypress/base:10
+  script:
+    - yarn
+    - yarn build

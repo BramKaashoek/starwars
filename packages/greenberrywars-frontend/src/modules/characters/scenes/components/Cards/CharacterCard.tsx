@@ -24,14 +24,14 @@ const CharacterCard: React.FC<IProps> = (props: IProps) => {
   const { character } = props;
 
   return (
-    <Card>
+    <Card data-test="characterCard">
       {character.id === 20 ? (
         <Portrait src={require('../../../../../assets/yoda.jpeg')} />
       ) : (
         <Portrait src={require('../../../../../assets/jarjar.jpeg')} />
       )}
       <h3>{character.name}</h3>
-      <h6>homeworld: {character.planet.name}</h6>
+      <h6>{character.planet.name}</h6>
     </Card>
   );
 };

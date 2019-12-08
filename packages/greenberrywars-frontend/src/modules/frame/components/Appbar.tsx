@@ -27,7 +27,7 @@ const Appbar: React.FC<IProps> = props => {
     setShowSmall(window.innerWidth < maxSize);
   };
 
-  return showSmall ? <Bar>GB</Bar> : <Bar>GREENBERRY</Bar>;
+  return showSmall ? <Bar data-test="appbar">GB</Bar> : <Bar data-test="appbar">GREENBERRY</Bar>;
 };
 
 export default Appbar;

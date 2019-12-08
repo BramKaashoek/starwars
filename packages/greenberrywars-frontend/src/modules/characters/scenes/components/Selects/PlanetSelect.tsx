@@ -20,7 +20,7 @@ const PlanetSelect: React.FC<IProps> = props => {
   if (loading) return null;
 
   return (
-    <Select onChange={handleChange} value={planetId}>
+    <Select data-test="planetSelect" onChange={handleChange} value={planetId}>
       {data &&
         data.planets.map(planet => (
           <option key={planet.id} value={planet.id}>

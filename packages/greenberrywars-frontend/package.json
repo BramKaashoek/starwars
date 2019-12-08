@@ -5,13 +5,6 @@
   "dependencies": {
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
     "apollo": "^2.21.1",
     "apollo-boost": "^0.4.4",
     "graphql": "^14.5.8",
@@ -21,10 +14,23 @@
     "react-scripts": "3.3.0",
     "typescript": "~3.7.2"
   },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "cypress": "^3.7.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "CI=true react-scripts test",
+    "test:watch": "react-scripts test",
+    "cypress:ci": "CYPRESS_RETRIES=2 cypress run --browser chrome",
+    "cypress": "cypress open",
     "eject": "react-scripts eject",
     "codegen:watch": "apollo client:codegen --endpoint=http://localhost:3100/graphql --addTypename --target=typescript --watch --outputFlat src/common/interfaces/generated"
   },
