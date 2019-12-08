@@ -21,6 +21,8 @@ const Main = styled.main({
   width: '100%',
 });
 
+// this component would typically contain more routes.
+// Typically I would also make it a class component, so that i could use ComponentDidCatch as en error boundary
 const Frame: React.FC<IProps> = props => {
   const { children } = props;
   return (

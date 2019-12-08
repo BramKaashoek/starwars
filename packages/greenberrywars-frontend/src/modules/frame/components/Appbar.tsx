@@ -16,6 +16,7 @@ const Appbar: React.FC<IProps> = props => {
   const maxSize = 700;
   const [showSmall, setShowSmall] = useState(window.innerWidth < maxSize);
 
+  // add on 'mount', remove on 'dismount'
   useEffect(() => {
     window.addEventListener('resize', updateWindowSize);
     return () => {
