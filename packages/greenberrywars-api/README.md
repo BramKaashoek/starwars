@@ -22,9 +22,13 @@ Its an open source package I spent 3 days on because I was too lazy to do 15 min
 
 ## Why are the external API calls in the specs not mocked out?
 
-I would have done that in an actualy production project.
+I would have done that in an actualy production project, but I did not bother to do it for this one
 
 ## The data problem
 
 The problem with the data is that there is no species <-> planet connection, other than through character.
-Therefore I enriched all planets with species and all species with their planets (inhabitted, not homeworld)
+Therefore I enriched all planets with species and all species with their planets (inhabitted, not homeworld), so more interesting data can be shown to the user
+
+## Folder structure
+
+Most of the logic can be found in the graphql folder. Koa is only used as a thin wrapper around apollo.

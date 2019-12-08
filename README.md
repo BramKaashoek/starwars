@@ -10,3 +10,7 @@ Run `yarn cypress` to run the E2E specs.
 
 Testing with jest when the project is not in the root dir is a major pain.
 Since one of the requests is to be able to start both servers with one command while still having tests, lerna seemed the easiest solution to me.
+
+## More documentation
+
+See the readmes in de project folders

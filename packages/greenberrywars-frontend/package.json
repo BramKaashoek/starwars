@@ -29,7 +29,7 @@
     "build": "react-scripts build",
     "test": "CI=true react-scripts test",
     "test:watch": "react-scripts test",
-    "cypress:ci": "CYPRESS_RETRIES=2 cypress",
+    "cypress:ci": "CYPRESS_RETRIES=2 cypress run",
     "cypress": "cypress open",
     "eject": "react-scripts eject",
     "codegen:watch": "apollo client:codegen --endpoint=http://localhost:3100/graphql --addTypename --target=typescript --watch --outputFlat src/common/interfaces/generated"
