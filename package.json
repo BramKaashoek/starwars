@@ -11,6 +11,6 @@
     "test": "lerna run test",
     "build": "lerna run build",
     "cypress:run": "lerna run cypress:ci",
-    "cypress": "start-test start \"http-get://localhost:3000|:3100\" cypress:run"
+    "cypress": "start-test start \"http-get://localhost:3000\" cypress:run"
   }
 }

@@ -1,3 +1,5 @@
+# CI speed could be greatly increased by caching node modules and pre-building and storing a cypress image
+
 stages:
   - test
   - cypress_test
