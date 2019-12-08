@@ -2,7 +2,7 @@
 
 stages:
   - test
-  # - cypress_test # cypress does not properly run in CI, not sure why, works on local
+  # - cypress_test # cypress does not properly run in CI, not sure why, works on local. Maybe not enough mem? I have this working on a non-free agent
   - build
 
 test:
