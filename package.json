@@ -6,6 +6,7 @@
     "start-server-and-test": "^1.10.6"
   },
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "start": "lerna run start",
     "test": "lerna run test",
     "build": "lerna run build",

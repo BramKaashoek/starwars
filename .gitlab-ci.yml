@@ -8,6 +8,7 @@ test:
   image: cypress/base:10
   script:
     - yarn
+    - yarn bootstrap
     - yarn test
 
 cypress_test:
@@ -15,6 +16,7 @@ cypress_test:
   image: cypress/base:10
   script:
     - yarn
+    - yarn bootstrap
     - yarn cypress
 
 build:
@@ -22,4 +24,5 @@ build:
   image: cypress/base:10
   script:
     - yarn
+    - yarn bootstrap
     - yarn build
